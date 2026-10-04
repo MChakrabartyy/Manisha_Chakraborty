@@ -107,14 +107,11 @@ const toolbox = [
 const portrait = { src: '/photos/giordanos.webp', caption: 'This is me ♡', pos: '50% 62%' };
 const photos = [
   { src: '/photos/koala.webp', caption: 'koala mode: activated', tilt: -2 },
-  { src: '/photos/tree.webp', caption: 'holiday season = my season', tilt: 1.5, pos: '50% 90%' },
-  { src: '/photos/ghc-wall.webp', caption: 'Grace Hopper Celebration 2025', tilt: -1, pos: '14% 50%' },
-  { src: '/photos/slytherin.webp', caption: 'trying on my Slytherin era', tilt: 2 },
-  { src: '/photos/snowman.webp', caption: 'new friend unlocked', tilt: -1.5, pos: '40% 45%' },
-  { src: '/photos/ghc-stage.webp', caption: 'main stage energy at GHC', tilt: 1 },
-  { src: '/photos/laptop.webp', caption: 'locked in', tilt: -1, pos: '55% 35%' },
-  { src: '/photos/coffee-wall.webp', caption: 'a wall of coffee in Chicago', tilt: 1.5, pos: '45% 50%' },
-  { src: '/photos/ghc-coffee.webp', caption: 'coffee first, then networking', tilt: -2 },
+  { src: '/photos/ghc-stage.webp', caption: 'main stage energy at GHC 2025', tilt: 1.5 },
+  { src: '/photos/slytherin.webp', caption: 'trying on my Slytherin era', tilt: -1 },
+  { src: '/photos/snowman.webp', caption: 'new friend unlocked', tilt: 2, pos: '40% 45%' },
+  { src: '/photos/ghc-coffee.webp', caption: 'coffee first, then networking', tilt: -1.5 },
+  { src: '/photos/tree.webp', caption: 'holiday season = my season', tilt: 1, pos: '50% 90%' },
 ];
 
 const community = [
