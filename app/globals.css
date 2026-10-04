@@ -401,11 +401,11 @@ html.fx .polaroid.in { transition: transform .3s, opacity .8s; }
 
 /* ---------- Side B: fun facts ---------- */
 .facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-.fact { --c: var(--rose-soft); background: var(--c); border-radius: 20px; padding: 22px; transition: transform .3s cubic-bezier(.2, 1.4, .4, 1), box-shadow .3s; }
+.fact { --c: var(--rose-soft); background: var(--c); border-radius: 20px; padding: 22px; display: flex; flex-direction: column; transition: transform .3s cubic-bezier(.2, 1.4, .4, 1), box-shadow .3s; }
 .fact:nth-child(2) { --c: var(--ochre-soft); } .fact:nth-child(3) { --c: var(--teal-soft); }
 .fact:nth-child(4) { --c: var(--lilac-soft); } .fact:nth-child(5) { --c: var(--ochre-soft); }
 .fact:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); }
-.fact-icon { display: inline-block; font-size: 32px; line-height: 1; transition: transform .4s cubic-bezier(.2, 1.6, .4, 1); }
+.fact-icon { display: inline-block; font-size: 28px; line-height: 32px; height: 32px; transition: transform .4s cubic-bezier(.2, 1.6, .4, 1); }
 .fact:hover .fact-icon { transform: scale(1.25) rotate(-10deg); }
 .fact b { display: block; font-family: var(--serif); font-size: 20px; font-weight: 600; margin-top: 12px; font-variation-settings: 'SOFT' 100; }
 .fact p { margin: 6px 0 0; color: var(--muted); font-size: 15px; line-height: 1.55; }
@@ -417,11 +417,12 @@ html.fx .polaroid.in { transition: transform .3s, opacity .8s; }
 @media (max-width: 560px) { .facts { grid-template-columns: 1fr; } }
 
 /* fact photos */
-.fact-pics { display: grid; gap: 6px; margin: -8px -8px 16px; border-radius: 14px; overflow: hidden; height: 170px; }
+.fact-pics { display: grid; gap: 6px; margin: -8px -8px 16px; border-radius: 14px; overflow: hidden; aspect-ratio: 16 / 10; }
 .fact-pics.n2 { grid-template-columns: 1fr 1fr; }
 .fact-pics img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .6s cubic-bezier(.2, .8, .2, 1); }
 .fact:hover .fact-pics img { transform: scale(1.06); }
-.fact.motto { background-size: cover; background-position: center 30%; min-height: 260px; }
+.fact.motto { background-size: cover; background-position: center 18%; min-height: 260px; justify-content: flex-end; }
+.fact.motto .motto-q { top: auto; bottom: 118px; }
 
 /* intro video + mic photo */
 .about { grid-template-columns: 240px 1fr 220px; gap: 32px; }

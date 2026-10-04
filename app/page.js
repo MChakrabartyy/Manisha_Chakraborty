@@ -139,15 +139,15 @@ const photos = [
 // Side B: little things you should know about me
 const facts = [
   { icon: '🎂', title: 'Resident birthday baker', text: 'I bake for my friends’ birthdays, and I’ve gotten pretty pro at it by now.',
-    pics: [{ src: '/photos/cake-legal.webp', alt: 'A homemade cake with pastel flowers that says Finally Legal' }, { src: '/photos/cake-21.webp', alt: 'A homemade sunflower cake with 21 candles' }] },
+    pics: [{ src: '/photos/fact-cake-legal.webp', alt: 'A homemade cake with pastel flowers that says Finally Legal' }, { src: '/photos/fact-cake-21.webp', alt: 'A homemade sunflower cake with 21 candles' }] },
   { icon: '☕', title: 'Coffee first. Always.', text: 'I need my morning coffee. Talk to me before it and you should be a little scared.',
-    pics: [{ src: '/photos/ghc-coffee.webp', alt: 'Manisha holding a coffee at Grace Hopper', pos: '50% 78%' }] },
+    pics: [{ src: '/photos/fact-coffee.webp', alt: 'Manisha holding a coffee at Grace Hopper' }] },
   { icon: '🎢', title: 'Not a rollercoaster girl', text: 'Recently discovered I HATE rollercoasters. Don’t worry, I’m fun in other ways.',
-    pics: [{ src: '/photos/ferris-view.webp', alt: 'Sunset over the Arizona State Fair from a Ferris wheel', pos: '60% 72%' }] },
+    pics: [{ src: '/photos/fact-fair.webp', alt: 'Sunset over the Arizona State Fair from a Ferris wheel' }] },
   { icon: '🌵', title: 'Yes to random plans', text: 'From 2 a.m. Saguaro runs to a spur-of-the-moment Camelback hike (as a first-time hiker!), I’ll always say yes.',
-    pics: [{ src: '/photos/night-hike.webp', alt: 'Manisha smiling in a hoodie on a night adventure', pos: '50% 30%' }, { src: '/photos/stars.webp', alt: 'Stars over a desert cliff at night' }] },
+    pics: [{ src: '/photos/fact-hike.webp', alt: 'Manisha smiling in a hoodie on a night adventure' }, { src: '/photos/fact-stars.webp', alt: 'Stars over a desert cliff at night' }] },
   { icon: '💻', title: 'Laptop open, party on', text: 'You might find me organizing a hackathon, or at a friend’s party with my laptop open, socializing at the same time.',
-    pics: [{ src: '/photos/laptop.webp', alt: 'Manisha on her laptop in a cap', pos: '55% 35%' }] },
+    pics: [{ src: '/photos/fact-laptop.webp', alt: 'Manisha on her laptop in a cap' }] },
 ];
 
 const community = [
@@ -357,7 +357,7 @@ export default function Home() {
                 <p>{f.text}</p>
               </div>
             ))}
-            <div className="fact motto" style={{ backgroundImage: "linear-gradient(rgba(43,35,41,.55), rgba(43,35,41,.85)), url('/photos/laughing.webp')" }}>
+            <div className="fact motto" style={{ backgroundImage: "linear-gradient(rgba(43,35,41,.05) 20%, rgba(43,35,41,.9) 75%), url('/photos/laughing.webp')" }}>
               <span className="motto-q" aria-hidden="true">“</span>
               <p>Life gave me this opportunity once, and I’d love to make the most of it.</p>
               <span className="motto-by">my motto</span>
