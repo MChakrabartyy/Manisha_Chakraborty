@@ -24,15 +24,15 @@ export default function Sides({ work, person }) {
   return (
     <div id="sides">
       <div className="wrap panel pick-panel">
-        <p className="pick-label">Pick a side</p>
+        <p className="pick-label">choose your adventure</p>
         <div className="sides-pick" role="tablist">
           <button role="tab" aria-selected={side === 'a'} className={`record ${side === 'a' ? 'on' : ''}`} onClick={() => pick('a')}>
             <span className="tab-icon a">♡</span>
-            <span className="txt"><b>Side A · The Work</b><small>Experience, projects and how I build</small></span>
+            <span className="txt"><b>Side A · The Engineer</b><small>What I build, where, and how</small></span>
           </button>
           <button role="tab" aria-selected={side === 'b'} className={`record ${side === 'b' ? 'on' : ''}`} onClick={() => pick('b')}>
             <span className="tab-icon b">✿</span>
-            <span className="txt"><b>Side B · The Person</b><small>Who I am when I’m not shipping</small></span>
+            <span className="txt"><b>Side B · The Human</b><small>Who I am when I’m not shipping</small></span>
           </button>
         </div>
       </div>

@@ -6,8 +6,24 @@ import { useEffect } from 'react';
 //    turn a little, lean toward the pointer, can be dragged anywhere, and spin when clicked.
 //  - Companions ([data-travel]) ride down the page edge with overall scroll progress.
 //  - Publishes --hero (0..1 through the first screen) and --page (0..1 through the page) on <html>.
-//  - Fades content up into place as it enters the viewport.
-const REVEAL = '.reveal, .sec-head, .stat, .card, .feature, .xp li, .model, .resume, .polaroid, .record, .lead-list li, .about-copy, .contact-card';
+//  - Fades content up into place as it enters the viewport, and counts numbers up.
+//  - Cards tilt toward the pointer; clicking empty space pops a little heart.
+const REVEAL = '.reveal, .sec-head, .stat, .card, .feature, .xp li, .model, .resume, .polaroid, .record, .lead-list li, .about-copy, .contact-card, .report, .tool-group';
+
+function countUp(el) {
+  const target = parseFloat(el.dataset.count);
+  const decimals = parseInt(el.dataset.decimals || '0', 10);
+  const suffix = el.dataset.suffix || '';
+  const fmt = (v) => v.toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals }) + suffix;
+  if (motionOff()) { el.textContent = fmt(target); return; }
+  const t0 = performance.now(), dur = 1400;
+  const step = (now) => {
+    const k = Math.min(1, (now - t0) / dur);
+    el.textContent = fmt(target * (1 - Math.pow(1 - k, 3)));
+    if (k < 1) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
 
 const motionOff = () =>
   document.documentElement.dataset.motion === 'off' ||
@@ -65,6 +81,30 @@ export default function ScrollFX() {
       mx = (e.clientX / window.innerWidth) * 2 - 1;
       my = (e.clientY / window.innerHeight) * 2 - 1;
       kick();
+      const card = !motionOff() && e.target.closest?.('.tilt');
+      if (card) {
+        const r = card.getBoundingClientRect();
+        card.style.setProperty('--ry', `${(((e.clientX - r.left) / r.width) - 0.5) * 7}deg`);
+        card.style.setProperty('--rx', `${(0.5 - ((e.clientY - r.top) / r.height)) * 7}deg`);
+      }
+    };
+    const onLeaveCard = (e) => {
+      const card = e.target.closest?.('.tilt');
+      if (card && !card.contains(e.relatedTarget)) { card.style.setProperty('--rx', '0deg'); card.style.setProperty('--ry', '0deg'); }
+    };
+
+    // click anywhere that isn't a control and a tiny heart floats up
+    const BITS = ['♥', '✦', '♡', '★'];
+    let nBits = 0;
+    const onClick = (e) => {
+      if (motionOff() || e.target.closest('a, button, input, textarea, .sticker, .record')) return;
+      const b = document.createElement('span');
+      b.className = 'pop-bit';
+      b.textContent = BITS[nBits++ % BITS.length];
+      b.style.left = `${e.clientX}px`; b.style.top = `${e.clientY}px`;
+      b.style.setProperty('--drift', `${(Math.random() - 0.5) * 60}px`);
+      document.body.appendChild(b);
+      setTimeout(() => b.remove(), 1100);
     };
 
     // drag any sticker; a click without movement makes it spin
@@ -94,7 +134,10 @@ export default function ScrollFX() {
     };
 
     const io = new IntersectionObserver((entries) => {
-      for (const e of entries) if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+      for (const e of entries) if (e.isIntersecting) {
+        e.target.classList.add('in'); io.unobserve(e.target);
+        e.target.querySelectorAll('[data-count]').forEach(countUp);
+      }
     }, { threshold: 0.12, rootMargin: '0px 0px -30px 0px' });
     const tag = () => {
       document.querySelectorAll(REVEAL).forEach((el, i) => {
@@ -119,6 +162,8 @@ export default function ScrollFX() {
     window.addEventListener('pointermove', onMove);
     window.addEventListener('pointerup', onUp);
     window.addEventListener('pointercancel', onUp);
+    document.addEventListener('pointerout', onLeaveCard);
+    document.addEventListener('click', onClick);
     render();
 
     return () => {
@@ -129,6 +174,8 @@ export default function ScrollFX() {
       window.removeEventListener('pointermove', onMove);
       window.removeEventListener('pointerup', onUp);
       window.removeEventListener('pointercancel', onUp);
+      document.removeEventListener('pointerout', onLeaveCard);
+      document.removeEventListener('click', onClick);
       io.disconnect(); mo.disconnect(); mm.disconnect();
       if (frame) cancelAnimationFrame(frame);
     };
