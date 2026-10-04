@@ -399,7 +399,7 @@ export default function Home() {
         <div className="wrap panel contact-card">
           <p className="hand-kicker">psst, my inbox is open</p>
           <h2>Say hi<span className="heart-dot">♡</span></h2>
-          <p>Recruiting for Summer 2027, building something with AI, or heading to GHC this year? I&apos;d love to hear from you.</p>
+          <p>I&apos;m looking for <strong>Summer 2027 internships</strong> in AI/ML engineering, software engineering and AI product management. If your team is building with AI, I&apos;d love to chat. And if you&apos;re heading to GHC this year, come say hi!</p>
           <div className="cta">
             <CopyEmail email={EMAIL} />
             <a className="btn" href={`mailto:${EMAIL}`}>Write me an email</a>

@@ -376,3 +376,4 @@ html.fx .polaroid.in { transition: transform .3s, opacity .8s; }
   .hero h1 .l2 { font-size: 58px; }
   .big-copy { font-size: 21px; }
 }
+.contact-card p strong { color: var(--ink); }
