@@ -6,6 +6,7 @@ import CopyEmail from './CopyEmail';
 import Note from './Note';
 import PhotoWall from './PhotoWall';
 import Traits from './Traits';
+import HelloVideo from './HelloVideo';
 import { Sticker } from './Stickers';
 
 const GH = 'https://github.com/MChakrabartyy';
@@ -128,20 +129,25 @@ const photos = [
   { src: '/photos/ghc-stage.webp', caption: 'main stage energy at GHC 2025', tilt: 1.5 },
   { src: '/photos/slytherin.webp', caption: 'trying on my Slytherin era', tilt: -1 },
   { src: '/photos/snowman.webp', caption: 'new friend unlocked', tilt: 2, pos: '40% 45%' },
-  { src: '/photos/laptop.webp', caption: 'laptop open, still socializing', tilt: -1.5, pos: '55% 35%' },
+  { src: '/photos/topgolf.webp', caption: 'said yes to Topgolf. form: questionable', tilt: -1.5, pos: '40% 40%' },
   { src: '/photos/tree.webp', caption: 'holiday season = my season', tilt: 1, pos: '50% 90%' },
   { src: '/photos/ghc-wall.webp', caption: 'Grace Hopper Celebration 2025', tilt: -1, pos: '14% 50%' },
   { src: '/photos/coffee-wall.webp', caption: 'a whole wall of coffee? say less', tilt: 1.5, pos: '45% 50%' },
-  { src: '/photos/ghc-coffee.webp', caption: 'coffee first, then networking', tilt: -2 },
+  { src: '/photos/state-fair.webp', caption: 'Arizona State Fair, snacks secured', tilt: -2, pos: '50% 35%' },
 ];
 
 // Side B: little things you should know about me
 const facts = [
-  { icon: '🎂', title: 'Resident birthday baker', text: 'I bake for my friends’ birthdays, and I’ve gotten pretty pro at it by now.' },
-  { icon: '☕', title: 'Coffee first. Always.', text: 'I need my morning coffee. Talk to me before it and you should be a little scared.' },
-  { icon: '🎢', title: 'Not a rollercoaster girl', text: 'Recently discovered I HATE rollercoasters. Don’t worry, I’m fun in other ways.' },
-  { icon: '🌵', title: 'Yes to random plans', text: 'From 2 a.m. Saguaro runs to a spur-of-the-moment Camelback hike (as a first-time hiker!), I’ll always say yes.' },
-  { icon: '💻', title: 'Laptop open, party on', text: 'You might find me organizing a hackathon, or at a friend’s party with my laptop open, socializing at the same time.' },
+  { icon: '🎂', title: 'Resident birthday baker', text: 'I bake for my friends’ birthdays, and I’ve gotten pretty pro at it by now.',
+    pics: [{ src: '/photos/cake-legal.webp', alt: 'A homemade cake with pastel flowers that says Finally Legal' }, { src: '/photos/cake-21.webp', alt: 'A homemade sunflower cake with 21 candles' }] },
+  { icon: '☕', title: 'Coffee first. Always.', text: 'I need my morning coffee. Talk to me before it and you should be a little scared.',
+    pics: [{ src: '/photos/ghc-coffee.webp', alt: 'Manisha holding a coffee at Grace Hopper', pos: '50% 78%' }] },
+  { icon: '🎢', title: 'Not a rollercoaster girl', text: 'Recently discovered I HATE rollercoasters. Don’t worry, I’m fun in other ways.',
+    pics: [{ src: '/photos/ferris-view.webp', alt: 'Sunset over the Arizona State Fair from a Ferris wheel', pos: '60% 72%' }] },
+  { icon: '🌵', title: 'Yes to random plans', text: 'From 2 a.m. Saguaro runs to a spur-of-the-moment Camelback hike (as a first-time hiker!), I’ll always say yes.',
+    pics: [{ src: '/photos/night-hike.webp', alt: 'Manisha smiling in a hoodie on a night adventure', pos: '50% 30%' }, { src: '/photos/stars.webp', alt: 'Stars over a desert cliff at night' }] },
+  { icon: '💻', title: 'Laptop open, party on', text: 'You might find me organizing a hackathon, or at a friend’s party with my laptop open, socializing at the same time.',
+    pics: [{ src: '/photos/laptop.webp', alt: 'Manisha on her laptop in a cap', pos: '55% 35%' }] },
 ];
 
 const community = [
@@ -330,6 +336,7 @@ export default function Home() {
               </p>
               <p className="hand-line">a few fun facts and favorite moments are just below ↓</p>
             </div>
+            <HelloVideo src="/photos/hello.mp4" poster="/photos/hello-poster.webp" caption="hi from Scottsdale ☀️" />
           </div>
         </div>
       </section>
@@ -340,12 +347,17 @@ export default function Home() {
           <div className="facts">
             {facts.map((f) => (
               <div className="fact" key={f.title}>
+                {f.pics && (
+                  <div className={`fact-pics n${f.pics.length}`}>
+                    {f.pics.map((p) => <img key={p.src} src={p.src} alt={p.alt} loading="lazy" style={{ objectPosition: p.pos || '50% 50%' }} />)}
+                  </div>
+                )}
                 <span className="fact-icon" aria-hidden="true">{f.icon}</span>
                 <b>{f.title}</b>
                 <p>{f.text}</p>
               </div>
             ))}
-            <div className="fact motto">
+            <div className="fact motto" style={{ backgroundImage: "linear-gradient(rgba(43,35,41,.55), rgba(43,35,41,.85)), url('/photos/laughing.webp')" }}>
               <span className="motto-q" aria-hidden="true">“</span>
               <p>Life gave me this opportunity once, and I’d love to make the most of it.</p>
               <span className="motto-by">my motto</span>
@@ -364,6 +376,10 @@ export default function Home() {
       <section id="community">
         <div className="wrap panel">
           <Head n="04" title="My people" aside="community is my love language" />
+          <figure className="people-pic">
+            <img src="/photos/mic.webp" alt="Manisha speaking into a microphone at ASU" loading="lazy" />
+            <figcaption>mic in hand, doing what I love: bringing people together</figcaption>
+          </figure>
           <ul className="lead-list">
             {community.map(([b, t]) => <li key={b}><b>{b}</b><span>{t}</span></li>)}
           </ul>
