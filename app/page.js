@@ -4,6 +4,7 @@ import ScrollFX from './ScrollFX';
 import Rotator from './Rotator';
 import CopyEmail from './CopyEmail';
 import Note from './Note';
+import PhotoWall from './PhotoWall';
 import { Sticker } from './Stickers';
 
 const GH = 'https://github.com/MChakrabartyy';
@@ -102,12 +103,18 @@ const toolbox = [
   ['AI-native dev tools', ['Claude Code', 'Cursor', 'Codex', 'GitHub Copilot']],
 ];
 
-// Side B photo slots. Drop images in public/photos/ and set `src` (e.g. '/photos/me.jpg').
+// Side B photos live in public/photos/ (resized, metadata stripped). `pos` sets the crop focus.
+const portrait = { src: '/photos/giordanos.webp', caption: 'This is me ♡', pos: '50% 62%' };
 const photos = [
-  { src: '', caption: 'This is me', tilt: -3 },
-  { src: '', caption: 'My happy place', tilt: 2 },
-  { src: '', caption: 'With my people', tilt: -1.5 },
-  { src: '', caption: 'Out on an adventure', tilt: 3 },
+  { src: '/photos/koala.webp', caption: 'koala mode: activated', tilt: -2 },
+  { src: '/photos/tree.webp', caption: 'holiday season = my season', tilt: 1.5, pos: '50% 90%' },
+  { src: '/photos/ghc-wall.webp', caption: 'Grace Hopper Celebration 2025', tilt: -1, pos: '14% 50%' },
+  { src: '/photos/slytherin.webp', caption: 'trying on my Slytherin era', tilt: 2 },
+  { src: '/photos/snowman.webp', caption: 'new friend unlocked', tilt: -1.5, pos: '40% 45%' },
+  { src: '/photos/ghc-stage.webp', caption: 'main stage energy at GHC', tilt: 1 },
+  { src: '/photos/laptop.webp', caption: 'locked in', tilt: -1, pos: '55% 35%' },
+  { src: '/photos/coffee-wall.webp', caption: 'a wall of coffee in Chicago', tilt: 1.5, pos: '45% 50%' },
+  { src: '/photos/ghc-coffee.webp', caption: 'coffee first, then networking', tilt: -2 },
 ];
 
 const community = [
@@ -278,15 +285,15 @@ export default function Home() {
           <Head n="01" title="Off the clock" aside="the human behind the commits" />
           <div className="about">
             <div className="polaroid big" style={{ '--tilt': '-2deg' }}>
-              <div className="ph">{photos[0].src ? <img src={photos[0].src} alt="Manisha" /> : <span>photo coming soon</span>}</div>
-              <p>{photos[0].caption}</p>
+              <div className="ph"><img src={portrait.src} alt="Manisha smiling in a booth at Giordano's in Chicago" style={{ objectPosition: portrait.pos }} /></div>
+              <p>{portrait.caption}</p>
             </div>
             <div className="about-copy">
               <p className="hi">Hi! I&apos;m Manisha, <span className="hand">Brishti</span> to friends.</p>
               <p>
-                The résumé tells you what I build. This side is about everything else: the people, places and little things that make me, me. I&apos;m happiest when I&apos;m bringing people together, whether that&apos;s a 5,000-person AI community, a brand-new club, or a hackathon team running on no sleep.
+                The résumé tells you what I build. This side is about everything else: the people, places and little things that make me, me. I&apos;m happiest when I&apos;m bringing people together, whether that&apos;s a 5,000-person AI community, a brand-new club, or a hackathon team racing the clock.
               </p>
-              <p className="hand-line">more stories &amp; photos coming soon…</p>
+              <p className="hand-line">a few favorite moments are just below ↓</p>
             </div>
           </div>
         </div>
@@ -295,14 +302,7 @@ export default function Home() {
       <section id="photos">
         <div className="wrap panel">
           <Head n="02" title="Snapshots" aside="life off the keyboard" />
-          <div className="polaroids">
-            {photos.slice(1).map((ph) => (
-              <figure className="polaroid" key={ph.caption} style={{ '--tilt': `${ph.tilt}deg` }}>
-                <div className="ph">{ph.src ? <img src={ph.src} alt={ph.caption} /> : <span>photo coming soon</span>}</div>
-                <figcaption>{ph.caption}</figcaption>
-              </figure>
-            ))}
-          </div>
+          <PhotoWall photos={photos} />
         </div>
       </section>
 

@@ -7,7 +7,7 @@ const description =
 export const metadata = {
   title,
   description,
-  metadataBase: new URL('https://manisha-chakraborty.vercel.app'),
+  metadataBase: new URL('https://manishachakrabortyy.vercel.app'),
   openGraph: { title, description, type: 'website' },
   twitter: { card: 'summary', title, description },
 };
