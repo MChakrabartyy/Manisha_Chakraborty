@@ -2,14 +2,15 @@ import './globals.css';
 
 const title = "Manisha Chakraborty | Welcome to my little corner of the globe";
 const description =
-  'CS at Arizona State (4.0). AI engineer shipping agentic RAG systems to production at Precisely and ASU Enterprise Technology. Seeking Summer 2027 AI/ML, SWE and AI PM internships.';
+  'AI engineer and CS junior at Arizona State (4.0). I ship agentic AI systems to production. Open to Summer 2027 internships in AI/ML, SWE, forward deployed engineering and AI PM.';
+const image = { url: '/og.jpg', width: 1200, height: 627, alt: "Manisha Chakraborty's portfolio: Hello, you've reached Manisha's little corner of the globe" };
 
 export const metadata = {
   title,
   description,
   metadataBase: new URL('https://manishachakrabortyy.vercel.app'),
-  openGraph: { title, description, type: 'website' },
-  twitter: { card: 'summary', title, description },
+  openGraph: { title, description, type: 'website', url: '/', siteName: 'Manisha Chakraborty', images: [image] },
+  twitter: { card: 'summary_large_image', title, description, images: [image.url] },
 };
 
 const themeScript = `try{var m=localStorage.getItem('motion');if(m)document.documentElement.dataset.motion=m}catch(e){}`;
