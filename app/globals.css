@@ -398,3 +398,20 @@ html.fx .polaroid.in { transition: transform .3s, opacity .8s; }
 .trait:focus-visible { outline: 3px solid var(--rose); outline-offset: 4px; border-radius: 22px; }
 @media (max-width: 900px) { .traits { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 560px) { .traits { grid-template-columns: 1fr; } .trait { height: 200px; } }
+
+/* ---------- Side B: fun facts ---------- */
+.facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.fact { --c: var(--rose-soft); background: var(--c); border-radius: 20px; padding: 22px; transition: transform .3s cubic-bezier(.2, 1.4, .4, 1), box-shadow .3s; }
+.fact:nth-child(2) { --c: var(--ochre-soft); } .fact:nth-child(3) { --c: var(--teal-soft); }
+.fact:nth-child(4) { --c: var(--lilac-soft); } .fact:nth-child(5) { --c: var(--ochre-soft); }
+.fact:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); }
+.fact-icon { display: inline-block; font-size: 32px; line-height: 1; transition: transform .4s cubic-bezier(.2, 1.6, .4, 1); }
+.fact:hover .fact-icon { transform: scale(1.25) rotate(-10deg); }
+.fact b { display: block; font-family: var(--serif); font-size: 20px; font-weight: 600; margin-top: 12px; font-variation-settings: 'SOFT' 100; }
+.fact p { margin: 6px 0 0; color: var(--muted); font-size: 15px; line-height: 1.55; }
+.fact.motto { background: var(--ink); color: var(--paper); position: relative; display: flex; flex-direction: column; justify-content: center; }
+.fact.motto p { color: var(--paper); font-family: var(--serif); font-style: italic; font-size: 20px; line-height: 1.4; margin: 0; }
+.motto-q { position: absolute; top: 4px; left: 16px; font-family: var(--serif); font-size: 64px; color: var(--rose); line-height: 1; }
+.motto-by { margin-top: 12px; font-family: var(--hand); font-size: 22px; color: #f3b6cc; }
+@media (max-width: 900px) { .facts { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { .facts { grid-template-columns: 1fr; } }

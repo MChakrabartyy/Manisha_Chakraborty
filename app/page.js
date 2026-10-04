@@ -128,8 +128,20 @@ const photos = [
   { src: '/photos/ghc-stage.webp', caption: 'main stage energy at GHC 2025', tilt: 1.5 },
   { src: '/photos/slytherin.webp', caption: 'trying on my Slytherin era', tilt: -1 },
   { src: '/photos/snowman.webp', caption: 'new friend unlocked', tilt: 2, pos: '40% 45%' },
-  { src: '/photos/ghc-coffee.webp', caption: 'coffee first, then networking', tilt: -1.5 },
+  { src: '/photos/laptop.webp', caption: 'laptop open, still socializing', tilt: -1.5, pos: '55% 35%' },
   { src: '/photos/tree.webp', caption: 'holiday season = my season', tilt: 1, pos: '50% 90%' },
+  { src: '/photos/ghc-wall.webp', caption: 'Grace Hopper Celebration 2025', tilt: -1, pos: '14% 50%' },
+  { src: '/photos/coffee-wall.webp', caption: 'a whole wall of coffee? say less', tilt: 1.5, pos: '45% 50%' },
+  { src: '/photos/ghc-coffee.webp', caption: 'coffee first, then networking', tilt: -2 },
+];
+
+// Side B: little things you should know about me
+const facts = [
+  { icon: '🎂', title: 'Resident birthday baker', text: 'I bake for my friends’ birthdays, and I’ve gotten pretty pro at it by now.' },
+  { icon: '☕', title: 'Coffee first. Always.', text: 'I need my morning coffee. Talk to me before it and you should be a little scared.' },
+  { icon: '🎢', title: 'Not a rollercoaster girl', text: 'Recently discovered I HATE rollercoasters. Don’t worry, I’m fun in other ways.' },
+  { icon: '🌵', title: 'Yes to random plans', text: 'From 2 a.m. Saguaro runs to a spur-of-the-moment Camelback hike (as a first-time hiker!), I’ll always say yes.' },
+  { icon: '💻', title: 'Laptop open, party on', text: 'You might find me organizing a hackathon, or at a friend’s party with my laptop open, socializing at the same time.' },
 ];
 
 const community = [
@@ -316,7 +328,27 @@ export default function Home() {
               <p>
                 The résumé tells you what I build. This side is about everything else: the people, places and little things that make me, me. I&apos;m happiest when I&apos;m bringing people together, whether that&apos;s a 5,000-person AI community, a brand-new club, or a hackathon team racing the clock.
               </p>
-              <p className="hand-line">a few favorite moments are just below ↓</p>
+              <p className="hand-line">a few fun facts and favorite moments are just below ↓</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="facts">
+        <div className="wrap panel">
+          <Head n="02" title="Things you should know about me" aside="the fine print" />
+          <div className="facts">
+            {facts.map((f) => (
+              <div className="fact" key={f.title}>
+                <span className="fact-icon" aria-hidden="true">{f.icon}</span>
+                <b>{f.title}</b>
+                <p>{f.text}</p>
+              </div>
+            ))}
+            <div className="fact motto">
+              <span className="motto-q" aria-hidden="true">“</span>
+              <p>Life gave me this opportunity once, and I’d love to make the most of it.</p>
+              <span className="motto-by">my motto</span>
             </div>
           </div>
         </div>
@@ -324,14 +356,14 @@ export default function Home() {
 
       <section id="photos">
         <div className="wrap panel">
-          <Head n="02" title="Snapshots" aside="life off the keyboard" />
+          <Head n="03" title="Snapshots" aside="life off the keyboard" />
           <PhotoWall photos={photos} />
         </div>
       </section>
 
       <section id="community">
         <div className="wrap panel">
-          <Head n="03" title="My people" aside="community is my love language" />
+          <Head n="04" title="My people" aside="community is my love language" />
           <ul className="lead-list">
             {community.map(([b, t]) => <li key={b}><b>{b}</b><span>{t}</span></li>)}
           </ul>
