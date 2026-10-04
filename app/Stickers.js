@@ -86,3 +86,9 @@ export function Sticker({ type, props, size = 64, style, speed = 0.3, depth = 1,
     </span>
   );
 }
+
+// Just the artwork, for elements that position themselves (the travelling motifs).
+Sticker.Art = function StickerArt({ type, props }) {
+  const Art = ART[type];
+  return <Art {...props} />;
+};

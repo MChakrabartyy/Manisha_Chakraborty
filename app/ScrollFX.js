@@ -4,7 +4,8 @@ import { useEffect } from 'react';
 // Interaction layer for the whole page.
 //  - Stickers drift down with you as you scroll (parallax relative to the viewport centre),
 //    turn a little, lean toward the pointer, can be dragged anywhere, and spin when clicked.
-//  - Companions ([data-travel]) ride down the page edge with overall scroll progress.
+//  - Travellers start exactly where their motif is painted in the background illustration,
+//    pop out as you begin to scroll, and then come along with you, wandering at the screen edges.
 //  - Publishes --hero (0..1 through the first screen) and --page (0..1 through the page) on <html>.
 //  - Fades content up into place as it enters the viewport, and counts numbers up.
 //  - Cards tilt toward the pointer; clicking empty space pops a little heart.
@@ -51,6 +52,8 @@ export default function ScrollFX() {
       root.style.setProperty('--hero', `${still ? 0 : Math.min(1, y / vh)}`);
       root.style.setProperty('--page', `${page}`);
 
+      placeTravelers(y, vh, still);
+
       document.querySelectorAll('.sticker').forEach((el) => {
         const s = st(el);
         let ty = 0, tx = 0, rot = 0;
@@ -70,12 +73,61 @@ export default function ScrollFX() {
         el.style.transform = `translate(${(tx + s.dx).toFixed(1)}px, ${(ty + s.dy).toFixed(1)}px) rotate(${rot.toFixed(1)}deg)`;
       });
 
-      document.querySelectorAll('[data-travel]').forEach((el) => {
-        const span = parseFloat(el.dataset.travel || '0.7');
-        el.style.transform = `translateY(${(page * span * vh).toFixed(1)}px) rotate(${(page * 540).toFixed(0)}deg)`;
-      });
     };
     const kick = () => { if (!frame) frame = requestAnimationFrame(render); };
+
+    // where a point of the illustration currently sits on screen (object-fit: cover + object-position + zoom)
+    const bgImg = document.querySelector('.bg img');
+    if (bgImg && !bgImg.complete) bgImg.addEventListener('load', kick, { once: true });
+    // ease-out: they leap off the painting quickly, then glide into place
+    const ease = (t) => 1 - Math.pow(1 - t, 3);
+    const placeTravelers = (y, vh, still) => {
+      const vw = window.innerWidth;
+      const mobile = vw <= 720;
+      let map = null;
+      if (bgImg && bgImg.naturalWidth) {
+        const r = bgImg.getBoundingClientRect();
+        const iw = bgImg.naturalWidth, ih = bgImg.naturalHeight;
+        const s = Math.max(r.width / iw, r.height / ih);
+        const dw = iw * s, dh = ih * s;
+        const [px, py] = getComputedStyle(bgImg).objectPosition.split(' ').map((v) => parseFloat(v) / 100);
+        map = { x: r.left + (r.width - dw) * px, y: r.top + (r.height - dh) * py, w: dw, h: dh };
+      }
+      // fully out of the painting after ~70% of the first screen
+      const t = still ? 1 : Math.min(1, y / (vh * 0.7));
+      const e = ease(t);
+      document.querySelectorAll('.traveler').forEach((el) => {
+        const s = st(el);
+        const d = el.dataset;
+        const base = el.offsetWidth || 50;
+        const phase = parseFloat(d.phase || '0');
+        // destination at the screen edge, wandering gently as you keep scrolling
+        let ex = (parseFloat(d.dx) / 100) * vw;
+        let ey = (parseFloat(d.dy) / 100) * vh;
+        if (mobile) ex = ex < vw / 2 ? 22 : vw - 22;
+        if (!still) {
+          ey += Math.sin(y / 520 + phase) * vh * 0.05;
+          ex += Math.cos(y / 760 + phase) * (mobile ? 4 : 18);
+        }
+        let x = ex, yy = ey, size = mobile ? base * 0.62 : base;
+        if (map && t < 1) {
+          const sx = map.x + parseFloat(d.ix) * map.w;
+          const sy = map.y + parseFloat(d.iy) * map.h;
+          const s0 = parseFloat(d.iw) * map.w;
+          x = sx + (ex - sx) * e;
+          yy = sy + (ey - sy) * e;
+          size = s0 + (size - s0) * e;
+        }
+        // the "pop": invisible while it is still part of the painting, then a little bounce as it lifts off
+        const opacity = still ? 1 : Math.min(1, Math.max(0, (t - 0.01) / 0.06));
+        const pop = still ? 1 : 1 + 0.16 * Math.sin(Math.PI * Math.min(1, t / 0.25));
+        const rot = parseFloat(d.rot || '0') + (still ? 0 : (y / 40) * (phase % 2 > 1 ? 1 : -1) * e);
+        const k = (size / base) * pop;
+        el.style.opacity = opacity.toFixed(3);
+        el.style.pointerEvents = opacity > 0.5 ? 'auto' : 'none';
+        el.style.transform = `translate(${(x - base / 2 + s.dx).toFixed(1)}px, ${(yy - base / 2 + s.dy).toFixed(1)}px) scale(${k.toFixed(3)}) rotate(${rot.toFixed(1)}deg)`;
+      });
+    };
 
     const onPointerMove = (e) => {
       mx = (e.clientX / window.innerWidth) * 2 - 1;
@@ -97,7 +149,7 @@ export default function ScrollFX() {
     const BITS = ['♥', '✦', '♡', '★'];
     let nBits = 0;
     const onClick = (e) => {
-      if (motionOff() || e.target.closest('a, button, input, textarea, .sticker, .record')) return;
+      if (motionOff() || e.target.closest('a, button, input, textarea, .sticker, .traveler, .record')) return;
       const b = document.createElement('span');
       b.className = 'pop-bit';
       b.textContent = BITS[nBits++ % BITS.length];
@@ -110,7 +162,7 @@ export default function ScrollFX() {
     // drag any sticker; a click without movement makes it spin
     let drag = null;
     const onDown = (e) => {
-      const el = e.target.closest('.sticker');
+      const el = e.target.closest('.sticker, .traveler');
       if (!el) return;
       e.preventDefault();
       const s = st(el);

@@ -43,11 +43,10 @@ const experience = [
     ],
   },
   {
-    when: 'Mar 2026 – now',
+    when: 'Mar 2026 – Aug 2026',
     role: 'QA Engineer',
     org: 'EdPlus, ASU',
     place: 'Scottsdale, AZ',
-    now: true,
     points: ['Built AI-assisted validation pipelines in Python that caught 290+ defects across 250+ student-facing modules before they ever went live.'],
   },
   {
@@ -119,11 +118,17 @@ const community = [
 ];
 const circles = ['Society of Women Engineers', 'Women in Computer Science', 'Girls Who Code', 'Rewriting the Code', 'FACE', 'CodePath'];
 
-// A sticker scattered beside a section. x/y are % of the section box.
-const S = ({ t, x, y, size = 60, speed = 0.3, depth = 1, spin = 0.04, props }) => (
-  <Sticker type={t} size={size} speed={speed} depth={depth} spin={spin} props={props} style={{ left: `${x}%`, top: `${y}%` }} />
-);
-const Deco = ({ children, cls = '' }) => <div className={`deco ${cls}`} aria-hidden="true">{children}</div>;
+// Motifs painted in the illustration. Each one starts exactly where it is painted
+// (ix/iy = its centre as a fraction of the image, iw = its width as a fraction of the image),
+// pops out as you start scrolling, and then travels with you to a spot at the page edge (dx/dy, % of the screen).
+const travelers = [
+  { type: 'star', ix: 0.919, iy: 0.595, iw: 0.085, rot: 8, dx: 92, dy: 30, size: 58, props: { color: '#f2c62b' } },
+  { type: 'heart', ix: 0.305, iy: 0.63, iw: 0.15, rot: 12, dx: 7, dy: 26, size: 70, props: { color: '#e77aa9', line: '#b2457a' } },
+  { type: 'strawberry', ix: 0.777, iy: 0.483, iw: 0.065, rot: -20, dx: 94, dy: 66, size: 50 },
+  { type: 'soot', ix: 0.654, iy: 0.133, iw: 0.075, rot: 0, dx: 6, dy: 72, size: 52 },
+  { type: 'starfish', ix: 0.733, iy: 0.28, iw: 0.12, rot: -18, dx: 91, dy: 88, size: 56, mobile: false },
+  { type: 'heart', ix: 0.247, iy: 0.805, iw: 0.11, rot: -8, dx: 9, dy: 50, size: 46, props: { color: '#e77aa9', line: '#b2457a' }, mobile: false },
+];
 const Head = ({ n, title, aside }) => (
   <div className="sec-head">
     <h2>{n && <span className="num">{n}</span>}{title}</h2>
@@ -135,29 +140,26 @@ export default function Home() {
   const work = (
     <>
       <section id="work">
-        <Deco>
-          <S t="heart" x={3} y={18} size={70} speed={0.35} />
-          <S t="star" x={92} y={60} size={50} speed={0.5} spin={0.08} />
-        </Deco>
-        <div className="wrap panel">
-          <Head n="01" title="The TL;DR" aside="the elevator pitch" />
-          <p className="big-copy reveal">
-            I build AI agents that <mark>actually ship</mark>. At Precisely I took a talent assessment that ate <mark>5 days</mark> of manual work and turned it into a <mark>10-minute query</mark>. Now I do the same kind of thing as an Agentic Engineer at ASU, and spend my evenings building communities where more people get to do it too.
-          </p>
-          <div className="stats">
-            <div className="stat"><b data-count="4" data-decimals="1">4.0</b><small>GPA in Computer Science, 3× Dean’s List</small></div>
-            <div className="stat"><b>5d → 10m</b><small>Assessment prep, thanks to my agent</small></div>
-            <div className="stat"><b data-count="4" data-suffix="×">4×</b><small>Hackathon winner</small></div>
-            <div className="stat"><b data-count="5000" data-suffix="+">5,000+</b><small>Members in the AI Society I helped run</small></div>
+        <div className="wrap panel hello">
+          <Head n="01" title="Hello, thanks for stopping by!" />
+          <div className="hello-body reveal">
+            <p className="hello-lead">
+              I&apos;m Manisha, a <mark>junior</mark> (still can&apos;t believe it) studying Computer Science with a minor in Data Science, focused on <mark>AI and agentic engineering</mark>.
+            </p>
+            <p>
+              I&apos;m pretty good at studying (a 4.0 and the Dean&apos;s List all three years), but what I&apos;m best at is being a <strong>jack of all trades</strong>. I love learning, picking up new technology, and experimenting with it until I understand how it really works.
+            </p>
+            <p>
+              I also love being part of communities. I&apos;m a founding member of ASU&apos;s AWS Student Builders Group, where I get to meet and mentor students who are just as curious as I am.
+            </p>
+            <p>
+              My friends would call me a go-getter. In all honesty, I need a little push sometimes too, but once I get it, you&apos;ll see what I can really do.
+            </p>
           </div>
         </div>
       </section>
 
       <section id="experience">
-        <Deco>
-          <S t="soot" x={94} y={10} size={52} speed={0.45} depth={1.6} />
-          <S t="strawberry" x={2} y={55} size={56} speed={0.3} />
-        </Deco>
         <div className="wrap panel">
           <Head n="02" title="Currently juggling" aside="yes, all at once" />
           <ul className="xp">
@@ -179,10 +181,6 @@ export default function Home() {
       </section>
 
       <section id="featured">
-        <Deco>
-          <S t="shell" x={1} y={12} size={78} speed={0.25} spin={0.02} />
-          <S t="star" x={93} y={70} size={44} speed={0.55} props={{ points: 4 }} spin={0.1} />
-        </Deco>
         <div className="wrap panel">
           <Head n="03" title="The one I’m proudest of" aside="Precisely Software" />
           <div className="feature">
@@ -206,11 +204,6 @@ export default function Home() {
       </section>
 
       <section id="projects">
-        <Deco>
-          <S t="lily" x={93} y={8} size={74} speed={0.3} />
-          <S t="heart" x={2} y={46} size={48} speed={0.5} props={{ color: '#e3a0b8', line: '#b45f80' }} />
-          <S t="soot" x={95} y={78} size={44} speed={0.6} depth={1.8} />
-        </Deco>
         <div className="wrap panel">
           <Head n="04" title="Side quests" aside="hackathons, classes, late nights" />
           <div className="grid">
@@ -230,10 +223,6 @@ export default function Home() {
       </section>
 
       <section id="ai">
-        <Deco>
-          <S t="leaf" x={1} y={20} size={70} speed={0.28} spin={0.02} />
-          <S t="starfish" x={93} y={55} size={58} speed={0.42} />
-        </Deco>
         <div className="wrap panel">
           <Head n="05" title="My toolbox" aside="right model, right job" />
           <p className="intro-copy reveal">
@@ -256,10 +245,6 @@ export default function Home() {
       </section>
 
       <section id="school">
-        <Deco>
-          <S t="star" x={3} y={30} size={48} speed={0.45} spin={0.08} />
-          <S t="heart" x={93} y={20} size={52} speed={0.35} props={{ color: '#e3a0b8', line: '#b45f80' }} />
-        </Deco>
         <div className="wrap panel">
           <Head n="06" title="Report card" aside="Arizona State University" />
           <div className="report">
@@ -289,10 +274,6 @@ export default function Home() {
   const person = (
     <>
       <section id="me">
-        <Deco>
-          <S t="heart" x={3} y={14} size={66} speed={0.35} />
-          <S t="strawberry" x={93} y={58} size={54} speed={0.45} />
-        </Deco>
         <div className="wrap panel">
           <Head n="01" title="Off the clock" aside="the human behind the commits" />
           <div className="about">
@@ -312,10 +293,6 @@ export default function Home() {
       </section>
 
       <section id="photos">
-        <Deco>
-          <S t="shell" x={94} y={10} size={64} speed={0.3} spin={0.02} />
-          <S t="star" x={2} y={60} size={46} speed={0.5} spin={0.08} />
-        </Deco>
         <div className="wrap panel">
           <Head n="02" title="Snapshots" aside="life off the keyboard" />
           <div className="polaroids">
@@ -330,10 +307,6 @@ export default function Home() {
       </section>
 
       <section id="community">
-        <Deco>
-          <S t="lily" x={1} y={10} size={68} speed={0.3} />
-          <S t="soot" x={95} y={60} size={46} speed={0.55} depth={1.8} />
-        </Deco>
         <div className="wrap panel">
           <Head n="03" title="My people" aside="community is my love language" />
           <ul className="lead-list">
@@ -354,10 +327,15 @@ export default function Home() {
       <div className="bg" aria-hidden="true">
         <img src="/manisha-illustration.webp" alt="" />
       </div>
-
-      {/* little companions that ride down the page edges as you scroll */}
-      <div className="companion right" data-travel="0.62" aria-hidden="true"><Sticker type="heart" size={34} speed={0} /></div>
-      <div className="companion left" data-travel="0.55" aria-hidden="true"><Sticker type="star" size={30} speed={0} /></div>
+      <div className="travelers" aria-hidden="true">
+        {travelers.map((t, i) => (
+          <span key={i} className={`traveler ${t.mobile === false ? 'desk-only' : ''}`} title="Drag me ♡"
+            data-ix={t.ix} data-iy={t.iy} data-iw={t.iw} data-rot={t.rot} data-dx={t.dx} data-dy={t.dy} data-phase={i * 1.7}
+            style={{ width: t.size }}>
+            <span className="sticker-in"><Sticker.Art type={t.type} props={t.props} /></span>
+          </span>
+        ))}
+      </div>
 
       <nav className="nav">
         <div className="wrap">
@@ -396,23 +374,12 @@ export default function Home() {
             </div>
             <div className="status"><span className="dot" />Open to Summer 2027 internships in AI/ML, SWE & AI PM · catch me at GHC 2026</div>
           </div>
-          <Note arrow="down-left" className="me-note">yep, that&apos;s me!</Note>
-          <Deco cls="hero-deco">
-            <S t="heart" x={36} y={14} size={58} speed={-0.45} depth={1.4} />
-            <S t="star" x={30} y={78} size={44} speed={-0.7} spin={0.1} depth={1.8} />
-            <S t="strawberry" x={88} y={70} size={52} speed={-0.55} depth={1.5} />
-            <S t="soot" x={84} y={16} size={44} speed={-0.8} depth={2} />
-          </Deco>
-          <a href="#sides" className="scroll-hint">come on in ↓</a>
+                    <a href="#sides" className="scroll-hint">come on in ↓</a>
         </header>
 
         <Sides work={work} person={person} />
 
         <section id="resume">
-          <Deco>
-            <S t="star" x={2} y={30} size={50} speed={0.45} spin={0.08} />
-            <S t="heart" x={94} y={50} size={54} speed={0.35} />
-          </Deco>
           <div className="wrap panel">
             <Head title="Grab a copy" aside="pick the one for your role" />
             <div className="resumes">
@@ -432,11 +399,6 @@ export default function Home() {
       </main>
 
       <footer id="contact">
-        <Deco>
-          <S t="lily" x={6} y={10} size={70} speed={0.3} />
-          <S t="soot" x={90} y={20} size={48} speed={0.5} depth={1.8} />
-          <S t="starfish" x={86} y={70} size={56} speed={0.4} />
-        </Deco>
         <div className="wrap panel contact-card">
           <p className="hand-kicker">psst, my inbox is open</p>
           <h2>Say hi<span className="heart-dot">♡</span></h2>
