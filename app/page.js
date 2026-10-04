@@ -5,6 +5,7 @@ import Rotator from './Rotator';
 import CopyEmail from './CopyEmail';
 import Note from './Note';
 import PhotoWall from './PhotoWall';
+import Traits from './Traits';
 import { Sticker } from './Stickers';
 
 const GH = 'https://github.com/MChakrabartyy';
@@ -17,6 +18,23 @@ const rotating = [
   'co-founded ASU’s AWS Student Builders Club.',
   'has won 4 hackathons (so far).',
   'grew a 5,000-member AI community 12×.',
+  'turns messy real-world problems into shipped systems.',
+];
+
+// What I bring to any team (AI/ML, SWE, FDE or PM). Front = the trait, back = a real moment that proves it.
+const traits = [
+  { icon: '☕', title: 'I start with people, not code', line: 'The best solution comes from understanding the problem first.',
+    proof: 'At Precisely I wasn’t handed a spec. I sat down with the six people who owned the data before writing a line, and that is why the agent actually got used.' },
+  { icon: '🧩', title: 'Jack of all trades, on purpose', line: 'Backend, frontend, data, cloud, product. I go wherever the problem is.',
+    proof: 'One agent took a nightly data pipeline, LLM orchestration, a FastAPI service, a React front end and an Azure deployment. I built every layer.' },
+  { icon: '🔬', title: 'I learn by breaking things', line: 'New tech is a playground. I experiment until I truly get it.',
+    proof: 'Claude, Llama and GPT each earned their place in a different project. I don’t have a favorite model, I have a reason for each one.' },
+  { icon: '🚀', title: 'I finish what I start', line: 'Prototypes are fun. Shipped things are better.',
+    proof: 'Prototype to production in 10 weeks at Precisely, and a working scam detector in 24 hours at DevHacks.' },
+  { icon: '🌱', title: 'I bring people along', line: 'Teams get better when knowledge is shared.',
+    proof: 'I co-founded the AWS Student Builders Group at ASU, where I run workshops and mentor students getting ready for internships and certifications.' },
+  { icon: '💬', title: 'Honest about what I need', line: 'Friends call me a go-getter. I also know when to ask for a push.',
+    proof: 'I’d rather ask a question early than guess late. Give me a clear goal and a little trust, and you’ll see what I can really do.' },
 ];
 
 const experience = [
@@ -163,9 +181,17 @@ export default function Home() {
         </div>
       </section>
 
+      <section id="strengths">
+        <div className="wrap panel">
+          <Head n="02" title="What makes me a great engineer" aside="for any team I join" />
+          <p className="intro-copy reveal">Whether the role says AI/ML, SWE, forward deployed or PM, this is what I bring. <em>Hover or tap</em> a card for the proof.</p>
+          <Traits traits={traits} />
+        </div>
+      </section>
+
       <section id="experience">
         <div className="wrap panel">
-          <Head n="02" title="Currently juggling" aside="yes, all at once" />
+          <Head n="03" title="Currently juggling" aside="yes, all at once" />
           <ul className="xp">
             {experience.map((x) => (
               <li key={x.role}>
@@ -186,7 +212,7 @@ export default function Home() {
 
       <section id="featured">
         <div className="wrap panel">
-          <Head n="03" title="The one I’m proudest of" aside="Precisely Software" />
+          <Head n="04" title="The one I’m proudest of" aside="Precisely Software" />
           <div className="feature">
             <Note arrow="down-left" className="feature-note">my favorite build ♡ live in production</Note>
             <div className="eyebrow">In production · Azure AI</div>
@@ -209,7 +235,7 @@ export default function Home() {
 
       <section id="projects">
         <div className="wrap panel">
-          <Head n="04" title="Side quests" aside="hackathons, classes, late nights" />
+          <Head n="05" title="Side quests" aside="hackathons, classes, late nights" />
           <div className="grid">
             {projects.map((p, i) => (
               <article className={`card tilt ${i === 0 ? 'wide' : ''}`} key={p.name}>
@@ -228,7 +254,7 @@ export default function Home() {
 
       <section id="ai">
         <div className="wrap panel">
-          <Head n="05" title="My toolbox" aside="right model, right job" />
+          <Head n="06" title="My toolbox" aside="right model, right job" />
           <p className="intro-copy reveal">
             I don&apos;t have a favorite model. I have a <em>reason</em> for each one.
           </p>
@@ -250,7 +276,7 @@ export default function Home() {
 
       <section id="school">
         <div className="wrap panel">
-          <Head n="06" title="Report card" aside="Arizona State University" />
+          <Head n="07" title="Report card" aside="Arizona State University" />
           <div className="report">
             <div className="grade">
               <span className="gpa">4.0</span>
@@ -369,7 +395,7 @@ export default function Home() {
               <a className="btn" href={LI} target="_blank" rel="noreferrer">LinkedIn</a>
               <a className="btn" href={GH} target="_blank" rel="noreferrer">GitHub</a>
             </div>
-            <div className="status"><span className="dot" />Open to Summer 2027 internships in AI/ML, SWE & AI PM · catch me at GHC 2026</div>
+            <div className="status"><span className="dot" />Open to Summer 2027 internships in AI/ML, SWE, FDE & AI PM · catch me at GHC 2026</div>
           </div>
                     <a href="#sides" className="scroll-hint">come on in ↓</a>
         </header>
@@ -399,7 +425,7 @@ export default function Home() {
         <div className="wrap panel contact-card">
           <p className="hand-kicker">psst, my inbox is open</p>
           <h2>Say hi<span className="heart-dot">♡</span></h2>
-          <p>I&apos;m looking for <strong>Summer 2027 internships</strong> in AI/ML engineering, software engineering and AI product management. If your team is building with AI, I&apos;d love to chat. And if you&apos;re heading to GHC this year, come say hi!</p>
+          <p>I&apos;m looking for <strong>Summer 2027 internships</strong> in AI/ML engineering, software engineering, forward deployed engineering and AI product management. If your team is building with AI, I&apos;d love to chat. And if you&apos;re heading to GHC this year, come say hi!</p>
           <div className="cta">
             <CopyEmail email={EMAIL} />
             <a className="btn" href={`mailto:${EMAIL}`}>Write me an email</a>

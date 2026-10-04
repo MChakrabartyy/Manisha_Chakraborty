@@ -377,3 +377,24 @@ html.fx .polaroid.in { transition: transform .3s, opacity .8s; }
   .big-copy { font-size: 21px; }
 }
 .contact-card p strong { color: var(--ink); }
+
+/* ---------- strengths: flip cards ---------- */
+.traits { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.trait { --c: var(--rose-soft); position: relative; height: 230px; padding: 0; border: 0; background: none; cursor: pointer; perspective: 1000px; font: inherit; color: inherit; text-align: left; }
+.trait:nth-child(6n+2) { --c: var(--ochre-soft); } .trait:nth-child(6n+3) { --c: var(--teal-soft); }
+.trait:nth-child(6n+4) { --c: var(--lilac-soft); } .trait:nth-child(6n+5) { --c: var(--teal-soft); } .trait:nth-child(6n) { --c: var(--ochre-soft); }
+.trait-inner { position: absolute; inset: 0; transform-style: preserve-3d; transition: transform .7s cubic-bezier(.2, .8, .2, 1); }
+.trait.flipped .trait-inner { transform: rotateY(180deg); }
+@media (hover: hover) { .trait:hover .trait-inner { transform: rotateY(180deg); } }
+.trait-face { position: absolute; inset: 0; border-radius: 20px; padding: 22px; display: flex; flex-direction: column; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+.trait-face.front { background: var(--c); }
+.trait-face.back { background: var(--ink); color: var(--paper); transform: rotateY(180deg); justify-content: center; }
+.trait-icon { font-size: 28px; line-height: 1; }
+.trait-face.front b { font-family: var(--serif); font-size: 21px; font-weight: 600; line-height: 1.2; margin-top: 14px; font-variation-settings: 'SOFT' 100; }
+.trait-face.front small { color: var(--muted); font-size: 14px; margin-top: 8px; line-height: 1.5; }
+.trait-face.front em { margin-top: auto; font-style: normal; font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--rose); }
+.proof-label { font-family: var(--hand); font-size: 22px; color: var(--bubblegum, #f3b6cc); margin-bottom: 6px; }
+.proof { font-size: 15px; line-height: 1.6; }
+.trait:focus-visible { outline: 3px solid var(--rose); outline-offset: 4px; border-radius: 22px; }
+@media (max-width: 900px) { .traits { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { .traits { grid-template-columns: 1fr; } .trait { height: 200px; } }
